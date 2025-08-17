@@ -1,27 +1,16 @@
-import js from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
+import nodeConfig from '@tinder-like/eslint-config/node.js';
 
 export default [
-  js.configs.recommended,
+  ...nodeConfig,
+  {
+    ignores: ['dist/**', 'coverage/**', 'node_modules/**'],
+  },
   {
     files: ['**/*.ts'],
-    languageOptions: {
-      parser: tsparser,
-      parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: 'module',
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tseslint,
-    },
     rules: {
-      ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': 'error',
+      // Backend-specific overrides
       '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-non-null-assertion': 'warn',
+      'no-console': 'off', // Console is fine in Node.js
     },
   },
 ];

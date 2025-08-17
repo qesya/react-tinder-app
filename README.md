@@ -35,6 +35,7 @@ tinder-like-app/
 **Backend**: Express.js, TypeScript, Jest  
 **Build**: Turborepo with npm workspaces  
 
+
 ## Features
 
 - **Swipe Interface**: Touch/mouse gestures with animations

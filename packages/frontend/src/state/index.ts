@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { Profile } from '../utils/types';
-import { fetchProfiles, likeProfile, dislikeProfile } from '../api/client';
+import { MatchService, ProfileService } from '@app/services';
 
 interface ProfilesState {
   queue: Profile[];
@@ -19,29 +19,29 @@ interface ActionsState {
 export const useProfilesStore = create<ProfilesState>((set, get) => ({
   queue: [],
   isLoading: false,
-  
+
   fetchMore: async () => {
     if (get().isLoading) return;
-    
+
     set({ isLoading: true });
-    
+
     try {
-      const data = await fetchProfiles(10);
-      set(state => ({ 
+      const data = await ProfileService.fetchProfiles(10);
+      set(state => ({
         queue: [...state.queue, ...data.data],
-        isLoading: false 
+        isLoading: false
       }));
     } catch (error) {
       console.error('Failed to fetch profiles:', error);
       set({ isLoading: false });
     }
   },
-  
+
   popNext: () => {
     const state = get();
     const [, ...rest] = state.queue;
     set({ queue: rest });
-    
+
     if (rest.length <= 3) {
       state.fetchMore();
     }
@@ -50,10 +50,10 @@ export const useProfilesStore = create<ProfilesState>((set, get) => ({
 
 export const useActionsStore = create<ActionsState>((set) => ({
   matchOpen: false,
-  
+
   like: async (id: string) => {
     try {
-      const data = await likeProfile(id);
+      const data = await MatchService.likeProfile(id);
       if (data.isMatch) {
         set({ matchOpen: true });
       }
@@ -61,14 +61,14 @@ export const useActionsStore = create<ActionsState>((set) => ({
       console.error('Failed to like profile:', error);
     }
   },
-  
+
   dislike: async (id: string) => {
     try {
-      await dislikeProfile(id);
+      await MatchService.dislikeProfile(id);
     } catch (error) {
       console.error('Failed to dislike profile:', error);
     }
   },
-  
+
   closeMatch: () => set({ matchOpen: false })
 }));

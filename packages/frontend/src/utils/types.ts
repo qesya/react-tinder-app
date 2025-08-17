@@ -28,8 +28,3 @@ export interface LikeResponse {
 export interface DislikeResponse {
   status: "ok";
 }
-
-export interface ApiError {
-  message: string;
-  code?: string;
-}

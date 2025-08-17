@@ -6,7 +6,8 @@
   "packageManager": "npm@10.8.3",
   "workspaces": [
     "packages/frontend",
-    "packages/backend"
+    "packages/backend",
+    "packages/eslint-config"
   ],
   "scripts": {
     "dev": "turbo run dev",
@@ -21,6 +22,8 @@
     "test:api": "node test-api.js",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md}\"",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "install:all": "npm install && npm install --workspaces"
@@ -28,6 +31,9 @@
   "devDependencies": {
     "concurrently": "^9.1.0",
     "ts-node": "^10.9.2",
-    "turbo": "^2.5.6"
+    "turbo": "^2.5.6",
+    "prettier": "^3.4.2",
+    "eslint": "^9.33.0"
   }
 }
+ 
