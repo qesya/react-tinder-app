@@ -1,0 +1,33 @@
+{
+  "name": "tinder-like-app",
+  "version": "1.0.0",
+  "description": "A Tinder-like application with React frontend and Express.js backend",
+  "private": true,
+  "packageManager": "npm@10.8.3",
+  "workspaces": [
+    "packages/frontend",
+    "packages/backend"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:frontend": "turbo run dev --filter=packages/frontend",
+    "dev:backend": "turbo run dev --filter=packages/backend",
+    "build": "turbo run build",
+    "build:frontend": "turbo run build --filter=packages/frontend",
+    "build:backend": "turbo run build --filter=packages/backend",
+    "test": "turbo run test",
+    "test:frontend": "turbo run test --filter=packages/frontend",
+    "test:backend": "turbo run test --filter=packages/backend",
+    "test:api": "node test-api.js",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean",
+    "install:all": "npm install && npm install --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "turbo": "^2.5.6"
+  }
+}
